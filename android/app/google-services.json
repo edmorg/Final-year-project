@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "99781236894",
+    "project_id": "skill-hunter-46e3e",
+    "storage_bucket": "skill-hunter-46e3e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:99781236894:android:7839e213117a631635438f",
+        "android_client_info": {
+          "package_name": "com.example.skill_hunter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "99781236894-uojlpmhmpt9ee0uf3i66h9lt9ud5n8gk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCq6ANXOPj-BEHSnK6BFkAzog4n-MIxipY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "99781236894-uojlpmhmpt9ee0uf3i66h9lt9ud5n8gk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
