@@ -9,7 +9,10 @@ import 'database/shared_preference.dart';
 import 'firebase_options.dart';
 import 'states/onboarding/onboarding_states_notifiers.dart';
 import 'states/users/states_notifier.dart';
-
+///
+///   FUCK MORGAN EDWIN OFOSUHENE
+///   bitch ass nigga
+///
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
