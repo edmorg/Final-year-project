@@ -1,8 +1,37 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:skill_hunter/screens/screens.dart';
+import 'package:skill_hunter/states/authentication/authentication_states_notifier.dart';
 
-void main() {
-  runApp(const SkillHunterRoot());
+import 'database/shared_preference.dart';
+import 'firebase_options.dart';
+import 'states/onboarding/onboarding_states_notifiers.dart';
+import 'states/users/states_notifier.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await LocalPreference.init();
+  final ProviderContainer container = ProviderContainer();
+  container.read(onboardingProvider.notifier).checkOnboardingState();
+  if (LocalPreference.isLoggedIn) {
+    await container.read(userStateProvider.notifier).getUserInfo();
+  }
+  container.listen(userStateProvider, (previous, state) async {
+    if (state is UserFailure) {
+      await container.read(authenticationStateProvider.notifier).signOut();
+    }
+  });
+  runApp(
+    UncontrolledProviderScope(
+      container: container,
+      child: const SkillHunterRoot(),
+    ),
+  );
 }
 
 class SkillHunterRoot extends StatelessWidget {
@@ -103,6 +132,21 @@ class SkillHunterRoot extends StatelessWidget {
         // To use the Playground font, add GoogleFonts package and uncomment
         // fontFamily: GoogleFonts.notoSans().fontFamily,
       ),
+      home: RootPageWrapper(),
     );
+  }
+}
+
+class RootPageWrapper extends ConsumerWidget {
+  const RootPageWrapper({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final onboardState = ref.watch(onboardingProvider);
+    if (onboardState is Authenticated) {
+      return const NavigationBase();
+    } else {
+      return const SplashScreen();
+    }
   }
 }
