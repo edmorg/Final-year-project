@@ -11,8 +11,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return SafeArea(
-      child: Padding(
+    return Scaffold(
+      appBar: AppBar(),
+      body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
         child: Column(
           children: [
@@ -46,17 +47,15 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                               Text(
                                 'Oyarifa',
                                 style: theme.textTheme.bodyMedium,
-                              ),Gap(4),
+                              ),
+                              Gap(4),
                               Row(
                                 children: [
                                   Text(
                                     '4.5',
                                     style: theme.textTheme.bodyMedium,
                                   ),
-                                  Icon(
-                                    Iconsax.star_15,
-                                    size: 16
-                                  ),
+                                  Icon(Iconsax.star_15, size: 16),
                                 ],
                               )
                             ],
