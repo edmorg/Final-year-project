@@ -17,9 +17,10 @@ class SplashScreen extends StatelessWidget {
               children: [
                 SvgPicture.asset('assets/splash.svg'),
                 Text(
-                  'Welcome to SkillHunter',
+                  'Welcome to TalentPlatform',
                   style: theme.textTheme.titleLarge,
                 ),
+
                 const SizedBox(height: 8),
                 Text(
                   'Discover Artisans and Professionals to cater your needs',
@@ -73,4 +74,8 @@ class SplashScreen extends StatelessWidget {
       ),
     );
   }
+
+
+
+
 }

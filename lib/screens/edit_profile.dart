@@ -8,8 +8,8 @@ class EditProfileView extends ConsumerStatefulWidget {
 }
 
 class _EditProfileViewState extends ConsumerState<EditProfileView> {
-  late final TextEditingController emailController;
-  late final TextEditingController fullName;
+   final TextEditingController emailController= TextEditingController();
+   final TextEditingController fullName=TextEditingController();
   final ValueNotifier<bool> emailNotifier = ValueNotifier(true);
   final ValueNotifier<bool> nameNotifier = ValueNotifier(true);
 
