@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:skill_hunter/states/service/service_state_notifier.dart';
 import 'package:skill_hunter/states/users/states_notifier.dart';
 
 import '../../database/shared_preference.dart';
@@ -68,6 +69,7 @@ class AuthenticationStateNotifier extends StateNotifier<AuthenticationStates> {
 
         /// fetch main page data if authentication is successful
         await ref.read(userStateProvider.notifier).getUserInfo();
+        await ref.read(serviceStateProvider.notifier).getServices();
 
         /// set authentication state to success afterwards
         state = AuthenticationSuccess();

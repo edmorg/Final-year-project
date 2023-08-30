@@ -19,6 +19,13 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
         SliverList.separated(
           itemBuilder: (context, index) {
             return ListTile(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => const ChatPageScreen(),
+                  ),
+                );
+              },
               contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
               leading: const CircleAvatar(radius: 32),
               title: Text(

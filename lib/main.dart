@@ -8,6 +8,7 @@ import 'package:skill_hunter/states/authentication/authentication_states_notifie
 import 'database/shared_preference.dart';
 import 'firebase_options.dart';
 import 'states/onboarding/onboarding_states_notifiers.dart';
+import 'states/service/service_state_notifier.dart';
 import 'states/users/states_notifier.dart';
 
 void main() async {
@@ -20,6 +21,7 @@ void main() async {
   container.read(onboardingProvider.notifier).checkOnboardingState();
   if (LocalPreference.isLoggedIn) {
     await container.read(userStateProvider.notifier).getUserInfo();
+    await container.read(serviceStateProvider.notifier).getServices();
   }
   container.listen(userStateProvider, (previous, state) async {
     if (state is UserFailure) {

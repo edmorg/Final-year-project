@@ -11,6 +11,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final service = ref.watch(searchStateProvider);
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -20,57 +21,85 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             TextField(
               decoration: const InputDecoration(hintText: 'Search'),
               onTapOutside: (_) {},
-              onChanged: (value) {},
+              onChanged: (value) async {
+                await ref.read(searchStateProvider.notifier).getServices(queryParam: value);
+              },
             ),
-            Flexible(
-              child: ListView.separated(
-                padding: const EdgeInsets.symmetric(vertical: 32),
-                itemBuilder: (context, index) {
-                  return Card(
-                    elevation: 0.2,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                      child: Row(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset('assets/splash.png', height: 88, width: 100, fit: BoxFit.cover),
-                          ),
-                          Gap(8),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+            if (service is ServiceSuccess)
+              if (service.services.isNotEmpty)
+                Flexible(
+                  child: ListView.separated(
+                    padding: const EdgeInsets.symmetric(vertical: 32),
+                    itemBuilder: (context, index) {
+                      return Card(
+                        elevation: 0.2,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                          child: Row(
                             children: [
-                              Text(
-                                'Dery laundary',
-                                style: theme.textTheme.titleMedium,
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: CachedNetworkImage(
+                                  imageUrl: service.services[index].serviceImage,
+                                  height: 88,
+                                  width: 96,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                              Text(
-                                'Oyarifa',
-                                style: theme.textTheme.bodyMedium,
-                              ),
-                              Gap(4),
-                              Row(
+                              const Gap(8),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '4.5',
+                                    service.services[index].serviceName,
+                                    style: theme.textTheme.titleMedium,
+                                  ),
+                                  Text(
+                                    service.services[index].location,
                                     style: theme.textTheme.bodyMedium,
                                   ),
-                                  Icon(Iconsax.star_15, size: 16),
+                                  const Gap(4),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        service.services[index].rating.toString(),
+                                        style: theme.textTheme.bodyMedium,
+                                      ),
+                                      const Icon(Iconsax.star_15, size: 16),
+                                    ],
+                                  )
                                 ],
                               )
                             ],
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return const Gap(16);
-                },
-                itemCount: 4,
+                          ),
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return const Gap(16);
+                    },
+                    itemCount: service.services.length,
+                  ),
+                ),
+            if (service is ServiceLoading) ...[
+              const Spacer(),
+              const Center(
+                child: CircularProgressIndicator.adaptive(),
               ),
-            )
+              const Spacer()
+            ],
+            if (service is ServiceFailure) ...[
+              const Spacer(),
+              Center(
+                child: Column(
+                  children: [
+                    SvgPicture.asset('assets/splash.svg'),
+                    Text(service.error),
+                  ],
+                ),
+              ),
+              const Spacer()
+            ]
           ],
         ),
       ),

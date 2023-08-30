@@ -9,6 +9,10 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:skill_hunter/extensions/dismiss_keyboard.dart';
 import 'package:skill_hunter/extensions/padding.dart';
+import 'package:skill_hunter/states/service/service_repository.dart';
+import 'package:skill_hunter/states/service/service_state_notifier.dart';
+import 'package:skill_hunter/states/service/service_states.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../loading_screen/loading_screen.dart';
 import '../mixins/input_validation_mixins.dart';
@@ -27,4 +31,5 @@ part 'navigation_base.dart';
 part 'profile.dart';
 part 'register.dart';
 part 'search.dart';
+part 'service.dart';
 part 'splash.dart';
