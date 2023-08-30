@@ -29,7 +29,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
               contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
               leading: const CircleAvatar(radius: 32),
               title: Text(
-                'Todd Nelson',
+                'Edwin Morgan',
                 style: theme.textTheme.titleMedium,
               ),
               subtitle: Text(
@@ -41,7 +41,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
           separatorBuilder: (context, index) {
             return const Divider(height: 0);
           },
-          itemCount: 6,
+          itemCount: 1,
         )
       ],
     );

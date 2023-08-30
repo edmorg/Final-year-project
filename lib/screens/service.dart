@@ -155,7 +155,7 @@ class _ServiceScreenState extends ConsumerState<ServiceScreen> {
                     child: FilledButton.icon(
                       onPressed: () {
                         launchUrl(
-                          Uri(path: 'tel:${widget.service.phoneNumber}'),
+                          Uri(path: 'tel:+233${widget.service.phoneNumber}'),
                         );
                       },
                       icon: const Icon(Iconsax.call, size: 18),

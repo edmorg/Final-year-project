@@ -31,46 +31,57 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   child: ListView.separated(
                     padding: const EdgeInsets.symmetric(vertical: 32),
                     itemBuilder: (context, index) {
-                      return Card(
-                        elevation: 0.2,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                          child: Row(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(12),
-                                child: CachedNetworkImage(
-                                  imageUrl: service.services[index].serviceImage,
-                                  height: 88,
-                                  width: 96,
-                                  fit: BoxFit.cover,
-                                ),
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => ServiceScreen(
+                                service: service.services[index],
                               ),
-                              const Gap(8),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    service.services[index].serviceName,
-                                    style: theme.textTheme.titleMedium,
+                            ),
+                          );
+                        },
+                        child: Card(
+                          elevation: 0.2,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: CachedNetworkImage(
+                                    imageUrl: service.services[index].serviceImage,
+                                    height: 88,
+                                    width: 96,
+                                    fit: BoxFit.cover,
                                   ),
-                                  Text(
-                                    service.services[index].location,
-                                    style: theme.textTheme.bodyMedium,
-                                  ),
-                                  const Gap(4),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        service.services[index].rating.toString(),
-                                        style: theme.textTheme.bodyMedium,
-                                      ),
-                                      const Icon(Iconsax.star_15, size: 16),
-                                    ],
-                                  )
-                                ],
-                              )
-                            ],
+                                ),
+                                const Gap(8),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      service.services[index].serviceName,
+                                      style: theme.textTheme.titleMedium,
+                                    ),
+                                    Text(
+                                      service.services[index].location,
+                                      style: theme.textTheme.bodyMedium,
+                                    ),
+                                    const Gap(4),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          service.services[index].rating.toString(),
+                                          style: theme.textTheme.bodyMedium,
+                                        ),
+                                        const Icon(Iconsax.star_15, size: 16),
+                                      ],
+                                    )
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       );

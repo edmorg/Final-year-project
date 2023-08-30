@@ -124,38 +124,50 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   height: 264,
                   child: ListView.separated(
                     shrinkWrap: true,
+                    reverse: true,
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return Card(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CachedNetworkImage(
-                              imageUrl: service.services[index].serviceImage,
-                              height: 186,
-                              width: 256,
-                              fit: BoxFit.cover,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(service.services[index].serviceName, style: theme.textTheme.titleLarge),
-                                  Row(
-                                    children: List.generate(
-                                      service.services[index].categories.length,
-                                      (categoryIndex) => Text(
-                                        '${service.services[index].categories[categoryIndex]}, ',
-                                        style: theme.textTheme.titleMedium,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => ServiceScreen(
+                                service: service.services[index],
                               ),
                             ),
-                          ],
+                          );
+                        },
+                        child: Card(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CachedNetworkImage(
+                                imageUrl: service.services[index].serviceImage,
+                                height: 186,
+                                width: 256,
+                                fit: BoxFit.cover,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(service.services[index].serviceName, style: theme.textTheme.titleLarge),
+                                    Row(
+                                      children: List.generate(
+                                        service.services[index].categories.length,
+                                        (categoryIndex) => Text(
+                                          '${service.services[index].categories[categoryIndex]}, ',
+                                          style: theme.textTheme.titleMedium,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     },
