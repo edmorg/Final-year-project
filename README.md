@@ -1,4 +1,4 @@
-# skill_hunter
+# Talent_Platform
 
 A new Flutter project.
 
